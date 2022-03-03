@@ -12,4 +12,8 @@ export interface PersonRepository {
 
     delete(id: number): void;
 
+    existByDocument(document: string): boolean;
+
+    existsById(id: number): boolean;
+
 }
