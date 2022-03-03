@@ -1,4 +1,5 @@
 import {Person} from "../Person";
+import {DeleteResult} from "typeorm";
 
 export interface PersonRepository {
 
@@ -10,10 +11,10 @@ export interface PersonRepository {
 
     findAll(): Promise<Person[]>;
 
-    delete(id: number): void;
+    delete(id: number): Promise<DeleteResult>;
 
-    existByDocument(document: string): boolean;
+    existsByDocument(document: string): Promise<boolean>;
 
-    existsById(id: number): boolean;
+    existsById(id: number): Promise<boolean>;
 
 }
