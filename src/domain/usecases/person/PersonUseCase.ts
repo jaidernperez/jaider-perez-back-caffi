@@ -45,8 +45,12 @@ export class PersonUseCase {
         return this.mapper.listEntityToResponse(this.repository.findAll());
     }
 
-    public deletePerson(id: number): Promise<DeleteResult> {
-        return this.repository.delete(id);
+    public async deletePerson(id: number): Promise<String> {
+        if ((await this.repository.delete(id)).affected == 1){
+            return Promise.resolve(Constants.PERSON_DELETED_SUCCESSFULLY);
+        } else {
+            return Promise.resolve(Constants.PERSON_NOT_FOUND);
+        }
     }
 
     private async validatePersonDocument(document: string): Promise<Error> {

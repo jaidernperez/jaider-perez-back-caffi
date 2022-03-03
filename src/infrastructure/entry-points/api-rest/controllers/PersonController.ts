@@ -69,5 +69,13 @@ export class PersonController {
                 });
             });
         });
+
+        app.route("/persons/:id").delete((req: express.Request, res: express.Response) => {
+            this.loanUseCase.deletePerson(Number(req.params.id)).then((response) => {
+                res.status(200).send({
+                    "message": response
+                });
+            })
+        });
     }
 }
