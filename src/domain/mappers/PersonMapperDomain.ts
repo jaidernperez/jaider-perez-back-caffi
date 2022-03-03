@@ -3,9 +3,7 @@ import {Person} from "../models";
 
 export interface PersonMapperDomain {
 
-    entityToResponseProm(entity: Promise<Person>): Promise<PersonResponse>;
-
-    entityToResponse(entity: Person): PersonResponse;
+    entityToResponse(entity: Promise<Person>): Promise<PersonResponse>;
 
     requestToEntity(request: PersonRequest): Person;
 

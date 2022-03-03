@@ -4,7 +4,7 @@ import {Person} from "../models";
 
 export class PersonMapperDomainImp implements PersonMapperDomain {
 
-    async entityToResponseProm(entity: Promise<Person>): Promise<PersonResponse> {
+    async entityToResponse(entity: Promise<Person>): Promise<PersonResponse> {
         let personResponse = new PersonResponse();
         await entity.then(person => {
             personResponse.id = person.id;
@@ -14,16 +14,6 @@ export class PersonMapperDomainImp implements PersonMapperDomain {
             personResponse.state = person.state;
         });
         return Promise.resolve(personResponse);
-    }
-
-    entityToResponse(entity: Person): PersonResponse {
-        let personResponse = new PersonResponse();
-        personResponse.id = entity.id;
-        personResponse.name = entity.name;
-        personResponse.documentType = entity.documentType;
-        personResponse.document = entity.document;
-        personResponse.state = entity.state;
-        return personResponse;
     }
 
     requestToEntity(request: PersonRequest): Person {
@@ -39,10 +29,20 @@ export class PersonMapperDomainImp implements PersonMapperDomain {
         let personsResponse = [];
         await entityList.then(list => {
             list.forEach(person => {
-                personsResponse.push(this.entityToResponse(person));
+                personsResponse.push(PersonMapperDomainImp.entityToResponseObj(person));
             });
         })
         return personsResponse;
+    }
+
+    private static entityToResponseObj(entity: Person): PersonResponse {
+        let personResponse = new PersonResponse();
+        personResponse.id = entity.id;
+        personResponse.name = entity.name;
+        personResponse.documentType = entity.documentType;
+        personResponse.document = entity.document;
+        personResponse.state = entity.state;
+        return personResponse;
     }
 
 }
