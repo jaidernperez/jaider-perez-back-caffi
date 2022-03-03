@@ -49,27 +49,27 @@ export class PersonUseCase {
         return this.repository.delete(id);
     }
 
-    private async validatePersonDocument(document: string): Promise<void> {
+    private async validatePersonDocument(document: string): Promise<Error> {
         let exists;
         await this.repository.existsByDocument(document).then(value => {
             exists = value;
         })
         if (exists) {
-            throw new Error(Constants.DOCUMENT_ALREADY_EXISTS);
+            return new Error(Constants.DOCUMENT_ALREADY_EXISTS);
         }
     }
 
-    private async validatePersonId(id: number): Promise<void> {
+    private async validatePersonId(id: number): Promise<Error> {
         if (id !== null) {
             let exists;
             await this.repository.existsById(id).then(value => {
                 exists = value;
             });
             if (!exists) {
-                throw new Error(Constants.ID_NOT_VALID);
+                return new Error(Constants.ID_NOT_VALID);
             }
         } else {
-            throw new Error(Constants.ID_NOT_VALID);
+            return new Error(Constants.ID_NOT_VALID);
         }
     }
 

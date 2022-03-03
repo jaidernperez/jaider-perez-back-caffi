@@ -17,7 +17,7 @@ export class PersonController {
                 });
             }).catch(reason => {
                 res.status(400).send({
-                    "error": reason
+                    "message": reason.message
                 });
             });
         });
@@ -29,7 +29,7 @@ export class PersonController {
                 });
             }).catch(reason => {
                 res.status(400).send({
-                    "error": reason
+                    "Error": reason.message
                 });
             });
         });
@@ -41,7 +41,7 @@ export class PersonController {
                 });
             }).catch(reason => {
                 res.status(400).send({
-                    "error": reason
+                    "Error": reason.message
                 });
             });
         });
@@ -53,7 +53,7 @@ export class PersonController {
                 });
             }).catch(reason => {
                 res.status(400).send({
-                    "error": reason
+                    "Error": reason.message
                 });
             });
         });
@@ -65,19 +65,7 @@ export class PersonController {
                 });
             }).catch(reason => {
                 res.status(400).send({
-                    "error": reason
-                });
-            });
-        });
-
-        app.route("/persons/:id").delete((req: express.Request, res: express.Response) => {
-            this.loanUseCase.deletePerson(Number(req.params.id)).then((response) => {
-                res.status(200).send({
-                    response
-                });
-            }).catch(reason => {
-                res.status(400).send({
-                    "error": reason
+                    "Error": reason.message
                 });
             });
         });
