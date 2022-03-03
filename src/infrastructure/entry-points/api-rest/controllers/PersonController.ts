@@ -58,7 +58,7 @@ export class PersonController {
             });
         });
 
-        app.route("/persons/:document").get((req: express.Request, res: express.Response) => {
+        app.route("/persons/document/:document").get((req: express.Request, res: express.Response) => {
             this.loanUseCase.findPersonByDocument(req.params.document).then((response) => {
                 res.status(200).send({
                     response

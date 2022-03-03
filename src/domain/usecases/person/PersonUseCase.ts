@@ -28,7 +28,7 @@ export class PersonUseCase {
     }
 
     public createPerson(request: PersonRequest): Promise<PersonResponse> {
-        RequestValidation.validate(request);
+        RequestValidation.validateCreate(request);
         this.validatePersonDocument(request.document).then(() => {
         });
         return this.mapper.entityToResponse(this.repository.save(this.mapper.requestToEntity(request)));
@@ -37,9 +37,7 @@ export class PersonUseCase {
     public updatePerson(request: PersonRequest): Promise<PersonResponse> {
         this.validatePersonId(request.id).then(() => {
         });
-        RequestValidation.validate(request);
-        this.validatePersonDocument(request.document).then(() => {
-        });
+        RequestValidation.validateUpdate(request);
         return this.mapper.entityToResponse(this.repository.save(this.mapper.requestToEntity(request)));
     }
 
