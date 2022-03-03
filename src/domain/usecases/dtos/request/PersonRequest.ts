@@ -4,6 +4,7 @@ export class PersonRequest {
     public name: string;
     public documentType: string;
     public document: string;
+    public state: string;
 
     constructor() {
     }

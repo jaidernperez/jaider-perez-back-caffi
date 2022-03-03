@@ -1,7 +1,9 @@
 import {PersonMapperDomain} from "./PersonMapperDomain";
 import {PersonRequest, PersonResponse} from "../usecases";
 import {Person} from "../models";
+import {injectable} from "inversify";
 
+@injectable()
 export class PersonMapperDomainImp implements PersonMapperDomain {
 
     async entityToResponse(entity: Promise<Person>): Promise<PersonResponse> {
@@ -22,6 +24,7 @@ export class PersonMapperDomainImp implements PersonMapperDomain {
         personEntity.name = request.name;
         personEntity.documentType = request.documentType;
         personEntity.document = request.document;
+        personEntity.state = request.state;
         return personEntity;
     }
 

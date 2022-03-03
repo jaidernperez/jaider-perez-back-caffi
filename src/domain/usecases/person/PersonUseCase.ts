@@ -6,6 +6,7 @@ import {PersonRequest} from "../dtos/request/PersonRequest";
 import {PersonResponse} from "../dtos/response/PersonResponse";
 import {RequestValidation} from "../../helpers";
 import {Constants} from "../../constants/Constants";
+import {DeleteResult} from "typeorm";
 
 @injectable()
 export class PersonUseCase {
@@ -28,14 +29,17 @@ export class PersonUseCase {
 
     public createPerson(request: PersonRequest): Promise<PersonResponse> {
         RequestValidation.validate(request);
-        this.validatePersonDocument(request.document).then(() => {});
+        this.validatePersonDocument(request.document).then(() => {
+        });
         return this.mapper.entityToResponse(this.repository.save(this.mapper.requestToEntity(request)));
     }
 
     public updatePerson(request: PersonRequest): Promise<PersonResponse> {
-        this.validatePersonId(request.id).then(() => {});
+        this.validatePersonId(request.id).then(() => {
+        });
         RequestValidation.validate(request);
-        this.validatePersonDocument(request.document).then(() => {});
+        this.validatePersonDocument(request.document).then(() => {
+        });
         return this.mapper.entityToResponse(this.repository.save(this.mapper.requestToEntity(request)));
     }
 
@@ -43,8 +47,8 @@ export class PersonUseCase {
         return this.mapper.listEntityToResponse(this.repository.findAll());
     }
 
-    public deletePerson(id: number): void {
-        this.repository.delete(id).then(r => console.log(r));
+    public deletePerson(id: number): Promise<DeleteResult> {
+        return this.repository.delete(id);
     }
 
     private async validatePersonDocument(document: string): Promise<void> {
@@ -58,11 +62,15 @@ export class PersonUseCase {
     }
 
     private async validatePersonId(id: number): Promise<void> {
-        let exists;
-        await this.repository.existsById(id).then(value => {
-            exists = value;
-        })
-        if (!exists) {
+        if (id !== null) {
+            let exists;
+            await this.repository.existsById(id).then(value => {
+                exists = value;
+            });
+            if (!exists) {
+                throw new Error(Constants.ID_NOT_VALID);
+            }
+        } else {
             throw new Error(Constants.ID_NOT_VALID);
         }
     }

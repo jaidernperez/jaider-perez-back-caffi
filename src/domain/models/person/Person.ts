@@ -9,5 +9,7 @@ export class Person {
     public updateDate: Date;
 
     constructor() {
+        this.createdDate = new Date();
+        this.updateDate = new Date();
     }
 }

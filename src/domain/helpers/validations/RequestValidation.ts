@@ -12,7 +12,8 @@ export class RequestValidation {
         return Joi.object().keys({
             name: Joi.string().alphanum().min(3).max(50).required(),
             documentType: Joi.string().valid('CC', 'TI', 'RC', 'CE').required(),
-            document: Joi.string().alphanum().min(4).max(13).required()
+            document: Joi.string().alphanum().min(4).max(13).required(),
+            state: Joi.string().valid('ACTIVO', 'INACTIVO').required(),
         });
     }
 

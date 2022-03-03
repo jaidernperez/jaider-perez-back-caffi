@@ -1,7 +1,9 @@
 import {PersonMapperData} from "./PersonMapperData";
 import {PersonData} from "../person/PersonData";
 import {Person} from "../../../domain/models";
+import {injectable} from "inversify";
 
+@injectable()
 export class PersonMapperDataImpl implements PersonMapperData {
 
     async dataToEntity(data: Promise<PersonData>): Promise<Person> {
