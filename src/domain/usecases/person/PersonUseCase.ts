@@ -6,7 +6,6 @@ import {PersonRequest} from "../dtos/request/PersonRequest";
 import {PersonResponse} from "../dtos/response/PersonResponse";
 import {RequestValidation} from "../../helpers";
 import {Constants} from "../../constants/Constants";
-import {DeleteResult} from "typeorm";
 
 @injectable()
 export class PersonUseCase {
